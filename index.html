@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>AssurPay Suivi Validations</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='24' fill='%2300008f'/%3E%3Cpath d='M84 128 L128 72 L128 104 Q128 128 104 128 Z' fill='%23ff1721'/%3E%3Crect x='30' y='22' width='56' height='74' rx='7' fill='%23fff'/%3E%3Cpath d='M42 72 L54 84 L76 60' fill='none' stroke='%2300008f' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <style>
+    :root { --blue: #00008f; --blue-2: #3032c1; --red: #ff1721; --green: #138636; --ink: #17172e; --soft: #5b5b75; --bg: #f4f4f8; --line: #dcdce6; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font: 18px/1.55 "Segoe UI", Roboto, Arial, sans-serif; }
+    header { background: var(--blue); color: #fff; border-bottom: 6px solid var(--red); padding: 26px 16px; text-align: center; }
+    header h1 { margin: 0; font-size: 28px; }
+    header p { margin: 6px 0 0; opacity: .85; }
+    main { max-width: 640px; margin: 0 auto; padding: 30px 16px 60px; }
+    .card { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 30px 26px; text-align: center; }
+    .install { display: inline-block; background: var(--blue); color: #fff; font-weight: 700; font-size: 24px; text-decoration: none; padding: 18px 40px; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,143,.25); }
+    .install:hover { background: var(--blue-2); }
+    .install:focus-visible { outline: 4px solid var(--red); outline-offset: 4px; }
+    .meta { color: var(--soft); font-size: 15px; margin: 12px 0 0; }
+    .steps { text-align: left; margin: 28px 0 0; padding: 0; list-style: none; display: grid; gap: 14px; }
+    .steps li { display: flex; gap: 14px; align-items: flex-start; }
+    .n { flex: none; width: 34px; height: 34px; border-radius: 50%; background: var(--blue); color: #fff; font-weight: 700; display: grid; place-items: center; }
+    .pill { display: inline-block; background: #e9e9f7; border: 1px solid #c9c9e6; border-radius: 6px; padding: 0 8px; font-weight: 700; white-space: nowrap; }
+    .box { border-radius: 10px; padding: 16px 18px; margin: 0 0 20px; text-align: left; }
+    .ok { background: #e3f4e8; color: var(--green); font-weight: 600; }
+    .warn { background: #fff3e0; color: #8a4a00; }
+    .warn button { margin-top: 10px; font: inherit; font-weight: 700; background: var(--blue); color: #fff; border: 0; border-radius: 8px; padding: 8px 16px; cursor: pointer; }
+    .foot { color: var(--soft); font-size: 14px; text-align: center; margin-top: 22px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AssurPay Suivi Validations</h1>
+    <p>Extension Firefox pour le portail AXA</p>
+  </header>
+  <main>
+    <div class="card">
+      <div class="box ok" id="installed" hidden>✓ L'extension est déjà installée sur ce Firefox (version <span id="installedVersion"></span>). Les mises à jour sont automatiques : vous n'avez rien à faire.</div>
+      <div class="box warn" id="notFirefox" hidden>
+        Cette page doit être ouverte dans <b>Firefox</b>.<br>
+        Copiez son adresse, ouvrez Firefox et collez-la dans la barre d'adresse.<br>
+        <button type="button" id="copy">Copier l'adresse</button> <span id="copied"></span>
+      </div>
+      <a class="install" id="install" href="suivi-validations/assurpay-suivi-validations-1.0.1.xpi">Installer</a>
+      <p class="meta">Version 1.0.1 du 04/10/2026 · signée par Mozilla · mises à jour automatiques</p>
+      <ol class="steps">
+        <li><span class="n">1</span><span>Cliquez sur le grand bouton <b>Installer</b>.</span></li>
+        <li><span class="n">2</span><span>En haut de Firefox, cliquez <span class="pill">Continuer l'installation</span>.</span></li>
+        <li><span class="n">3</span><span>Cliquez <span class="pill">Ajouter</span>, puis <span class="pill">OK</span>. C'est terminé.</span></li>
+      </ol>
+    </div>
+    <p class="foot">Outil interne d'AssurPay pour les agences. Ce n'est pas un produit d'AXA.<br>Les données restent dans Firefox, sur l'ordinateur de l'agence.</p>
+  </main>
+  <script>
+    const isFirefox = /Firefox\//.test(navigator.userAgent);
+    if (!isFirefox) {
+      document.getElementById('notFirefox').hidden = false;
+      document.getElementById('install').style.opacity = '.4';
+    }
+    document.getElementById('copy').addEventListener('click', () => {
+      navigator.clipboard.writeText(location.href).then(
+        () => { document.getElementById('copied').textContent = 'Adresse copiée.'; },
+        () => { document.getElementById('copied').textContent = location.href; });
+    });
+    // The extension marks this page with its version when it is installed.
+    function showInstalled() {
+      const v = document.documentElement.dataset.assurpaySuiviValidations;
+      if (!v) return false;
+      document.getElementById('installedVersion').textContent = v;
+      document.getElementById('installed').hidden = false;
+      return true;
+    }
+    if (!showInstalled()) setTimeout(showInstalled, 800);
+  </script>
+</body>
+</html>
