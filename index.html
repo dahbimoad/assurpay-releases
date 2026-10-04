@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>AssurPay Suivi Validations</title>
+  <style>
+    :root { --blue: #00008f; --red: #ff1721; --ink: #17172e; --soft: #5b5b75; --bg: #f4f4f8; --line: #dcdce6; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.55 "Segoe UI", Roboto, Arial, sans-serif; }
+    header { background: var(--blue); color: #fff; border-bottom: 5px solid var(--red); padding: 22px 16px; }
+    header .in, main { max-width: 680px; margin: 0 auto; }
+    h1 { margin: 0; font-size: 26px; }
+    header p { margin: 4px 0 0; opacity: .85; }
+    main { padding: 28px 16px 60px; }
+    .card { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 24px; }
+    .install { display: inline-block; background: var(--blue); color: #fff; font-weight: 700; font-size: 19px; text-decoration: none; padding: 14px 26px; border-radius: 8px; margin: 8px 0 4px; }
+    .install:hover { background: #3032c1; }
+    .install:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
+    ol { padding-left: 22px; }
+    li { margin: 6px 0; }
+    .muted { color: var(--soft); font-size: 15px; }
+    .warn { background: #fff3e0; color: #9a5200; border-radius: 8px; padding: 12px 14px; font-size: 15.5px; display: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="in">
+      <h1>AssurPay Suivi Validations</h1>
+      <p>Extension Firefox pour le suivi des validations faites sur le portail AXA</p>
+    </div>
+  </header>
+  <main>
+    <div class="card">
+      <p class="warn" id="notFirefox">Cette page doit être ouverte dans <b>Firefox</b>. Copiez son adresse et collez-la dans Firefox.</p>
+      <a class="install" id="install" href="assurpay-suivi-validations-1.0.0.xpi">Installer dans Firefox</a>
+      <p class="muted">Version 1.0.0 · signée par Mozilla · mises à jour automatiques</p>
+      <ol>
+        <li>Cliquez sur <b>Installer dans Firefox</b>.</li>
+        <li>En haut de la fenêtre, cliquez <b>Continuer l'installation</b>, puis <b>Ajouter</b>.</li>
+        <li>Cliquez sur la pièce de puzzle en haut à droite, puis sur l'épingle à côté de <b>AssurPay Suivi Validations</b>.</li>
+      </ol>
+      <p class="muted">Outil interne d'AssurPay pour les agences. Ce n'est pas un produit d'AXA. Les données restent dans Firefox, sur l'ordinateur de l'agence.</p>
+    </div>
+  </main>
+  <script>
+    if (!/Firefox\//.test(navigator.userAgent)) document.getElementById('notFirefox').style.display = 'block';
+  </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "addons": {
+    "suivi-validations@assurpay.ma": {
+      "updates": [
+        {
+          "version": "1.0.0",
+          "update_link": "https://dahbimoad.github.io/assurpay-suivi-validations/assurpay-suivi-validations-1.0.0.xpi"
+        }
+      ]
+    }
+  }
+}
